@@ -2,6 +2,10 @@
 
 > Debug you package outside the monorepo
 
+## Requirement
+
+Next.js > 13.1.0
+
 ## Usage
 
 ```javascript

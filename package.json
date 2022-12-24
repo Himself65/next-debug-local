@@ -1,0 +1,14 @@
+{
+  "name": "next-debug-local",
+  "license": "MIT",
+  "main": "src/next-debug-local.js",
+  "author": "Himself65 <himself65@outlook.com>",
+  "keywords": [
+    "next",
+    "next.js",
+    "debug"
+  ],
+  "devDependencies": {
+    "@types/node": "^18.11.17"
+  }
+}

@@ -40,7 +40,7 @@ function withDebugLocalInitializer (modules, options) {
           config.resolve.extensionAlias = {
             '.js': ['.js', '.ts', '.tsx'],
           };
-          Object.entries(modules).forEach((name, path) => {
+          Object.entries(modules).forEach(([name, path]) => {
             config.resolve.alias[name] = path
           })
         }

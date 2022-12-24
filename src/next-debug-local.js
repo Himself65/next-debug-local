@@ -24,7 +24,7 @@ function withDebugLocalInitializer (modules, options) {
    * @param { T } nextConfig
    * @returns { T | undefined }
    */
-  return function withDebugLocal(nextConfig = {}) {
+  return function withDebugLocal (nextConfig = {}) {
     if (process.env.VERCEL === '1' || process.env.CI === '1') {
       // ignore vercel build
       return nextConfig
@@ -32,26 +32,26 @@ function withDebugLocalInitializer (modules, options) {
     if (Object.keys(modules).length === 0) {
       return nextConfig
     }
-    const packages = Object.keys(modules)
-    const transpilePackages = []
-    if (enable) {
-      transpilePackages.push(...packages)
+    if (!enable) {
+      return nextConfig
     }
+
+    const packages = Object.keys(modules)
+    const transpilePackages = [...packages]
     if (Array.isArray(nextConfig.transpilePackages)) {
       transpilePackages.push(...nextConfig.transpilePackages)
     }
     return Object.assign({}, nextConfig, {
       transpilePackages,
-      webpack(config, options) {
+      webpack (config, options) {
         config.cache.version = `${config.cache.version}|debug-local=${enable}`
-        if (enable) {
-          config.resolve.extensionAlias = {
-            '.js': ['.js', '.ts', '.tsx'],
-          };
-          Object.entries(modules).forEach(([name, path]) => {
-            config.resolve.alias[name] = path
-          })
+        config.resolve.extensionAlias = {
+          '.js': ['.js', '.ts', '.tsx'],
         }
+        Object.entries(modules).forEach(([name, path]) => {
+          config.resolve.alias[name] = path
+        })
+
         if (typeof nextConfig.webpack === 'function') {
           return nextConfig.webpack(config, options)
         }

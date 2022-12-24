@@ -37,6 +37,9 @@ function withDebugLocalInitializer (modules, options) {
       webpack(config, options) {
         config.cache.version = `${config.cache.version}|debug-local=${enable}`
         if (enable) {
+          config.resolve.extensionAlias = {
+            '.js': ['.js', '.ts', '.tsx'],
+          };
           Object.entries(modules).forEach((name, path) => {
             config.resolve.alias[name] = path
           })

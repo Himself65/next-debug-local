@@ -1,4 +1,5 @@
 const path = require('node:path')
+const { debug } = require('util')
 
 /**
  *
@@ -28,7 +29,10 @@ function withDebugLocalInitializer (modules, options) {
       return nextConfig
     }
     const packages = Object.keys(modules)
-    const transpilePackages = [...packages]
+    const transpilePackages = []
+    if (enable) {
+      transpilePackages.push(...packages)
+    }
     if (Array.isArray(nextConfig.transpilePackages)) {
       transpilePackages.push(...nextConfig.transpilePackages)
     }

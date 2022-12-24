@@ -9,20 +9,27 @@ Next.js > 13.1.0
 ## Usage
 
 ```javascript
+const path = require('node:path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ...
+  reactStrictMode: true,
+  swcMinify: true,
 }
 
-const withDebug = require('next-debug-local')({
-  '@blocksuite/store': '/path/to/repo/packages/store',
-  '@blocksuite/blocks': '/path/to/repo/packages/blocks',
-  '@blocksuite/editor': '/path/to/repo/packages/editor',
-}, {
-  enable: process.env.ENABLE_DEBUG_LOCAL
-})
+const baseDir = process.env.LOCAL_BLOCK_SUITE ?? '/'
+const withDebugLocal = require('next-debug-local')(
+  {
+    '@blocksuite/editor': path.resolve(baseDir, 'packages', 'editor'),
+    '@blocksuite/blocks': path.resolve(baseDir, 'packages', 'blocks'),
+    '@blocksuite/store': path.resolve(baseDir, 'packages', 'store'),
+  },
+  {
+    enable: path.isAbsolute(process.env.LOCAL_BLOCK_SUITE ?? ''),
+  }
+)
 
-module.exports = withDebug(config)
+module.exports = withDebugLocal(nextConfig)
 ```
 
 ## LICENSE

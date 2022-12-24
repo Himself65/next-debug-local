@@ -25,6 +25,10 @@ function withDebugLocalInitializer (modules, options) {
    * @returns { T | undefined }
    */
   return function withDebugLocal(nextConfig = {}) {
+    if (process.env.VERCEL === '1' || process.env.CI === '1') {
+      // ignore vercel build
+      return nextConfig
+    }
     if (Object.keys(modules).length === 0) {
       return nextConfig
     }

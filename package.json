@@ -1,6 +1,10 @@
 {
   "name": "next-debug-local",
   "license": "MIT",
+  "version": "0.1.0",
+  "files": [
+    "src/next-debug-local.js"
+  ],
   "main": "src/next-debug-local.js",
   "author": "Himself65 <himself65@outlook.com>",
   "keywords": [
